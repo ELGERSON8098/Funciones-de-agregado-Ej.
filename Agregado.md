@@ -1,32 +1,34 @@
-DROP DATABASE eyemplos
+CREATE DATABASE db_tienda_libros34;
+USE db_tienda_libros34;
 
-CREATE DATABASE eyemplos;
-USE eyemplos
-
-CREATE TABLE Ventas (
-    ID_Venta INT AUTO_INCREMENT PRIMARY KEY,
-    Producto VARCHAR(50),
-    Cantidad INT,
-    Precio_unitario DECIMAL(10, 2)
+CREATE TABLE Autores (
+    id_autor INT PRIMARY KEY,
+    nombre VARCHAR(100)
 );
 
+CREATE TABLE Libros (
+    id_libro INT PRIMARY KEY,
+    titulo VARCHAR(100),
+    id_autor INT,
+    precio DECIMAL(5,2), 
+    FOREIGN KEY (id_autor) REFERENCES Autores(id_autor)
+);
 
-INSERT INTO Ventas (Producto, Cantidad, Precio_unitario) VALUES
-('Producto A', 10, 15.00),
-('Producto B', 5, 20.00),
-('Producto A', 8, 15.00),
-('Producto C', 12, 10.00),
-('Producto B', 3, 20.00),
-('Producto A', 15, 15.00),
-('Producto C', 7, 10.00),
-('Producto B', 10, 20.00);
+INSERT INTO Autores (id_autor, nombre) VALUES (1, 'Gabriel García Márquez'), (2, 'Isabel Allende'), (3, 'Mario Vargas Llosa');
 
-SELECT COUNT(*) AS Total_Ventas FROM Ventas;
 
-SELECT SUM(Cantidad) AS Cantidad_Total_Vendida FROM Ventas;
+INSERT INTO Libros (id_libro, titulo, id_autor, precio) VALUES (1, 'Cien años de soledad', 1, 19.99), (2, 'La casa de los espíritus', 2, 14.99), (3, 'Conversación en La Catedral', 3, 24.99), (4, 'El amor en los tiempos del cólera', 1, 18.99), (5, 'Eva Luna', 2, 16.99);
 
-SELECT AVG(Precio_unitario) AS Precio_Promedio FROM Ventas;
+SELECT COUNT(*) FROM Libros;
 
-SELECT MAX(Precio_unitario) AS Precio_Unitario_Maximo FROM Ventas;
+SELECT COUNT(id_autor) FROM Libros;
 
-SELECT MIN(Precio_unitario) AS Precio_Unitario_Minimo FROM Ventas;# Funciones-de-agregado-Ej.
+SELECT COUNT(DISTINCT id_autor) FROM Libros;
+
+SELECT MAX(precio) AS Precio_Maximo FROM Libros;
+
+SELECT MIN(precio) AS Precio_Minimo FROM Libros;
+
+SELECT SUM(precio) AS Suma_Precios FROM Libros;
+
+SELECT AVG(precio) AS Precio_Promedio FROM Libros;
