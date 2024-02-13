@@ -1,0 +1,24 @@
+CREATE DATABASE db_tienda_libros;
+USE db_tienda_libros;
+
+
+CREATE TABLE Autores (
+    id_autor INT PRIMARY KEY,
+    nombre VARCHAR(100)
+);
+
+CREATE TABLE Libros (
+    id_libro INT PRIMARY KEY,
+    titulo VARCHAR(100),
+    id_autor INT,
+    FOREIGN KEY (id_autor) REFERENCES Autores(id_autor)
+);
+
+INSERT INTO Autores (id_autor, nombre) VALUES (1, 'Gabriel García Márquez'), (2, 'Isabel Allende'), (3, 'Mario Vargas Llosa');
+
+INSERT INTO Libros (id_libro, titulo, id_autor) VALUES (1, 'Cien años de soledad', 1), (2, 'La casa de los espíritus', 2), (3, 'Conversación en La Catedral', 3);
+
+
+SELECT nombre 
+FROM Autores 
+WHERE id_autor = (SELECT id_autor FROM Libros WHERE titulo = 'Cien años de soledad');
